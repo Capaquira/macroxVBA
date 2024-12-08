@@ -1,0 +1,38 @@
+Private Sub Worksheet_Change(ByVal Target As Range)
+
+'Toma de rango
+Dim minValue As Double
+Dim maxValue As Double
+minValue = Range("G7").Value
+maxValue = Range("H7").Value
+
+' Incrementa y pociciona los valores de T
+Dim i As Integer
+Dim fila As Integer
+
+' Pone en objetivo la celda que cambiara
+If Not Intersect(Target, Me.Range("C2")) Is Nothing Then
+
+    Range("C4").Value = (minValue + maxValue) / 2
+    
+    'Limpiar la columna
+    Range("J12:J" & Rows.Count).ClearContents
+    
+    'Inicio de llenado de tabla
+    fila = 12 ' Inicio en la primera fila
+    
+    For i = Int(minValue) To Int(maxValue)
+        Cells(fila, 10).Value = i 'J column is reprerented as 10
+        fila = fila + 1
+    Next i
+    
+    ' Referencia a la barra de desplazamiento llamada "IncreaseT"
+    'With Shapes("IncreaseT").ControlFormat
+    IncreaseT.Min = minValue
+    IncreaseT.Max = maxValue
+    'IncreaseT
+    'End With
+    
+End If
+    
+End Sub
